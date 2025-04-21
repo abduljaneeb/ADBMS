@@ -1,0 +1,74 @@
+A university wants to maintain a database for managing books and students who borrow them. The database consists of two tables:  
+
+1. Books â€“ Stores information about books available in the library.  
+2. Students â€“ Stores details of students who borrow books.  
+
+Questions:
+
+1. Create a table "books" with the following structure:  
+   - bookid (integer, Primary Key)  
+   - title (varchar(100), Cannot be NULL)  
+   - author (varchar(50), Cannot be NULL)  
+   - price (decimal(6,2), ))  
+
+2. Create a table "students" with the following structure:  
+   - studentid (integer, Primary Key)  
+   - name (varchar(100), Cannot be NULL)  
+   - course (varchar(50), Default value 'MCA')  
+   - age (integer, Check constraint: Value should be between 20 and 40)  
+
+3. Alter the "books" table to:  
+   - Add a column "publication_date" (date).  
+   - Modify the "price" column to have a default value of 100.00.  
+
+
+4. Insert the following records into the "books" table:
+
+   - 1, Database Systems, Ramez Elmasri, 500.00, 10th october 1976
+   - 2, Operating System Concepts, Silberschatz, 650.00, 20th november 1960
+   - 3, Computer Networks, Andrew S. Tanenbaum, 700.00, 17th february 2000
+   - 4, Algorithms, Cormen, 23rd january 2011
+
+5. Insert the following records into the "students" table:  
+   
+   - 101, Midhun K, MCA, 22
+   - 102, Ann Mariya, MCA, 30
+   - 103, Sidharth M, MCA, 21
+
+6. Update the price of the book "Operating System Concepts" to 700.00.  
+
+7. Delete the book with "bookid = 3" from the "books" table.  
+
+8. Increase the price of all books by 10%.  
+
+9. Remove the column "publication_date" from the "books" table.
+
+10. remove the "students" table. 
+
+answers:-
+
+1. create table books(bookid INT ,title varchar(100) NOT NULL,author varchar(50) NOT NULL,price decimal(6,2) DEFAULT (0.00),PRIMARY KEY (bookid));
+
+2.  create table students(studentid INT PRIMARY KEY,name varchar(100) NOT NULL,course varchar(50) DEFAULT 'MCA',age INT,CONSTRAINT chk_age CHECK(age BETWEEN  20 and 40));
+
+3. * alter table books add column publication_date DATE;
+   * ALTER TABLE books ALTER COLUMN price SET DEFAULT 100.00; 
+
+4.  INSERT INTO books VALUES
+(1, 'DATABASE SYSTEMS', 'RAMEZ ELMASRI', 500.00, '1976-10-10'),
+(2, 'OPERATING SYSTEM CONCEPTS', 'SILBERSCHATZ', 650.00, '1960-11-20'),
+(3, 'COMPUTER NETWORKS', 'ANDREW S TANENBAUM', 700.00, '2000-02-17'),
+(4, 'ALGORITHMS', 'CORMEN', 100.00, '2011-01-23');
+
+5.  insert into students values(101,'Midhun','MCA',22),(102,'Ann Marya','MCA',30),(103,'Sidharth M','MCA',21);
+
+6.  update books set price =700.00 where title like '%operating%system%concepts%';
+
+7.  delete from books where bookid = 3;
+
+8.   update books set price = price * 1.10;
+
+9.   alter table books drop column publication_date;
+
+10.  drop table students;
+
