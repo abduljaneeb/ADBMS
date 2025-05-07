@@ -1,0 +1,669 @@
+[mca@localhost ~]$ mongo
+Enter your MongoDB username: 24mca01
+Enter your MongoDB password: 
+Current Mongosh Log ID:	681b1f816a5f75b746d861df
+Connecting to:		mongodb://<credentials>@172.20.3.1:27017/24mca01_db?authSource=24mca01_db&directConnection=true&appName=mongosh+2.5.0
+Using MongoDB:		6.0.23
+Using Mongosh:		2.5.0
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+24mca01_db> db 
+24mca01_db
+24mca01_db> db.create collection("demo")
+Uncaught:
+SyntaxError: Missing semicolon. (1:9)
+
+> 1 | db.create collection("demo")
+    |          ^
+  2 |
+
+24mca01_db> db.createcollection("demo")
+TypeError: db.createcollection is not a function
+24mca01_db> db.createCollection("demo")
+{ ok: 1 }
+24mca01_db> show Collections
+MongoshInvalidInputError: [COMMON-10001] 'Collections' is not a valid argument for "show".
+24mca01_db> show Collections
+MongoshInvalidInputError: [COMMON-10001] 'Collections' is not a valid argument for "show".
+24mca01_db> show collections
+demo
+24mca01_db> db.createCollection("Stsuent")
+{ ok: 1 }
+24mca01_db> db.Student.insertOne({rollno:1,name:"Anil",age:20})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b22d56a5f75b746d861e0')
+}
+24mca01_db> db.Student.find()
+[
+  {
+    _id: ObjectId('681b22d56a5f75b746d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  }
+]
+24mca01_db> db.Student.insertOne({rollno:2,name:"janu"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b25726a5f75b746d861e1')
+}
+24mca01_db> db.Student.find()
+[
+  {
+    _id: ObjectId('681b22d56a5f75b746d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  },
+  {
+    _id: ObjectId('681b25726a5f75b746d861e1'),
+    rollno: 2,
+    name: 'janu'
+  }
+]
+24mca01_db> db.Student.find({rollno:2})
+[
+  {
+    _id: ObjectId('681b25726a5f75b746d861e1'),
+    rollno: 2,
+    name: 'janu'
+  }
+]
+24mca01_db> db.Student.find({rollno:2,age:20})
+
+24mca01_db> db.Student.find({rollno:1,age:20})
+[
+  {
+    _id: ObjectId('681b22d56a5f75b746d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  }
+]
+24mca01_db> db.Student.find({$or:[{rollno:1,age:20}]})
+[
+  {
+    _id: ObjectId('681b22d56a5f75b746d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  }
+]
+24mca01_db> db.Student.find({},{rollno:1,name:1})
+[
+  {
+    _id: ObjectId('681b22d56a5f75b746d861e0'),
+    rollno: 1,
+    name: 'Anil'
+  },
+  {
+    _id: ObjectId('681b25726a5f75b746d861e1'),
+    rollno: 2,
+    name: 'janu'
+  }
+]
+24mca01_db> db.Student.find({},{rollno:1,name:1,_id:0})
+[ { rollno: 1, name: 'Anil' }, { rollno: 2, name: 'janu' } ]
+24mca01_db> db.Student.insertOne({rollno:3,name:"jyo",age:25,phone:["9534","9900"]})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b2a1c6a5f75b746d861e2')
+}
+24mca01_db> db.Student.find()
+[
+  {
+    _id: ObjectId('681b22d56a5f75b746d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  },
+  {
+    _id: ObjectId('681b25726a5f75b746d861e1'),
+    rollno: 2,
+    name: 'janu'
+  },
+  {
+    _id: ObjectId('681b2a1c6a5f75b746d861e2'),
+    rollno: 3,
+    name: 'jyo',
+    age: 25,
+    phone: [ '9534', '9900' ]
+  }
+]
+24mca01_db> db.Student.insertOne({rollno:4,name:"sura",age:17,address:{city:"malappuram",state:"kerala"}})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b2acf6a5f75b746d861e3')
+}
+24mca01_db> db.show.find()
+
+24mca01_db> db.Student.find()
+[
+  {
+    _id: ObjectId('681b22d56a5f75b746d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  },
+  {
+    _id: ObjectId('681b25726a5f75b746d861e1'),
+    rollno: 2,
+    name: 'janu'
+  },
+  {
+    _id: ObjectId('681b2a1c6a5f75b746d861e2'),
+    rollno: 3,
+    name: 'jyo',
+    age: 25,
+    phone: [ '9534', '9900' ]
+  },
+  {
+    _id: ObjectId('681b2acf6a5f75b746d861e3'),
+    rollno: 4,
+    name: 'sura',
+    age: 17,
+    address: { city: 'malappuram', state: 'kerala' }
+  }
+]
+24mca01_db> db.Student.insertOne({rollno:5,name:"appu",age:23,project:[{pid:101,pname:"x"}{pid:198,pname:"y"}}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:78)
+
+> 1 | db.Student.insertOne({rollno:5,name:"appu",age:23,project:[{pid:101,pname:"x"}{pid:198,pname:"y"}}})
+    |                                                                               ^
+  2 |
+
+24mca01_db> db.Student.insertOne({rollno:5,name:"appu",age:23,project:[{pid:101,pname:"x"}{pid:198,pname:"y"}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:78)
+
+> 1 | db.Student.insertOne({rollno:5,name:"appu",age:23,project:[{pid:101,pname:"x"}{pid:198,pname:"y"}})
+    |                                                                               ^
+  2 |
+
+24mca01_db> db.Student.insertOne({rollno:5,name:"appu",age:23,project:[{pid:101,pname:"x"}{pid:198,pname:"y"}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:78)
+
+> 1 | db.Student.insertOne({rollno:5,name:"appu",age:23,project:[{pid:101,pname:"x"}{pid:198,pname:"y"}}])
+    |                                                                               ^
+  2 |
+
+24mca01_db> db.Student.insertOne({rollno:5,name:"appu",age:23,project:[{pid:101,pname:"x"}{pid:198,pname:"y"}]})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:78)
+
+> 1 | db.Student.insertOne({rollno:5,name:"appu",age:23,project:[{pid:101,pname:"x"}{pid:198,pname:"y"}]})
+    |                                                                               ^
+  2 |
+
+24mca01_db> db.Student.insertOne({
+...   rollno: 5,
+...   name: "appu",
+...   age: 23,
+...   project: [
+...     { pid: 101, pname: "x" },
+...     { pid: 198, pname: "y" }
+...   ]
+... });
+... 
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b2c586a5f75b746d861e4')
+}
+24mca01_db> db.Student.find()
+[
+  {
+    _id: ObjectId('681b22d56a5f75b746d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  },
+  {
+    _id: ObjectId('681b25726a5f75b746d861e1'),
+    rollno: 2,
+    name: 'janu'
+  },
+  {
+    _id: ObjectId('681b2a1c6a5f75b746d861e2'),
+    rollno: 3,
+    name: 'jyo',
+    age: 25,
+    phone: [ '9534', '9900' ]
+  },
+  {
+    _id: ObjectId('681b2acf6a5f75b746d861e3'),
+    rollno: 4,
+    name: 'sura',
+    age: 17,
+    address: { city: 'malappuram', state: 'kerala' }
+  },
+  {
+    _id: ObjectId('681b2c586a5f75b746d861e4'),
+    rollno: 5,
+    name: 'appu',
+    age: 23,
+    project: [ { pid: 101, pname: 'x' }, { pid: 198, pname: 'y' } ]
+  }
+]
+24mca01_db> db.Student.updateOne({rollno:1}{$set:{age:23}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:31)
+
+> 1 | db.Student.updateOne({rollno:1}{$set:{age:23}})
+    |                                ^
+  2 |
+
+24mca01_db> db.Student.updateOne({rollno:1},{$set:{age:23}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+24mca01_db> db.Student.find()
+[
+  {
+    _id: ObjectId('681b22d56a5f75b746d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 23
+  },
+  {
+    _id: ObjectId('681b25726a5f75b746d861e1'),
+    rollno: 2,
+    name: 'janu'
+  },
+  {
+    _id: ObjectId('681b2a1c6a5f75b746d861e2'),
+    rollno: 3,
+    name: 'jyo',
+    age: 25,
+    phone: [ '9534', '9900' ]
+  },
+  {
+    _id: ObjectId('681b2acf6a5f75b746d861e3'),
+    rollno: 4,
+    name: 'sura',
+    age: 17,
+    address: { city: 'malappuram', state: 'kerala' }
+  },
+  {
+    _id: ObjectId('681b2c586a5f75b746d861e4'),
+    rollno: 5,
+    name: 'appu',
+    age: 23,
+    project: [ { pid: 101, pname: 'x' }, { pid: 198, pname: 'y' } ]
+  }
+]
+24mca01_db> db.Student.updateOne({rollno:1},{$set:{phone:"98765655"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+24mca01_db> db.Student.find()
+[
+  {
+    _id: ObjectId('681b22d56a5f75b746d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 23,
+    phone: '98765655'
+  },
+  {
+    _id: ObjectId('681b25726a5f75b746d861e1'),
+    rollno: 2,
+    name: 'janu'
+  },
+  {
+    _id: ObjectId('681b2a1c6a5f75b746d861e2'),
+    rollno: 3,
+    name: 'jyo',
+    age: 25,
+    phone: [ '9534', '9900' ]
+  },
+  {
+    _id: ObjectId('681b2acf6a5f75b746d861e3'),
+    rollno: 4,
+    name: 'sura',
+    age: 17,
+    address: { city: 'malappuram', state: 'kerala' }
+  },
+  {
+    _id: ObjectId('681b2c586a5f75b746d861e4'),
+    rollno: 5,
+    name: 'appu',
+    age: 23,
+    project: [ { pid: 101, pname: 'x' }, { pid: 198, pname: 'y' } ]
+  }
+]
+24mca01_db> db.Student.updateOne({phone:{$exists:true}},{$rename:{phone:phoneno}})
+ReferenceError: phoneno is not defined
+24mca01_db> db.Student.updateOne(
+...   { phone: { $exists: true } },
+...   { $rename: { "phone": "phoneno" } }
+... );
+... 
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+24mca01_db> db.Student.find()
+[
+  {
+    _id: ObjectId('681b22d56a5f75b746d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 23,
+    phoneno: '98765655'
+  },
+  {
+    _id: ObjectId('681b25726a5f75b746d861e1'),
+    rollno: 2,
+    name: 'janu'
+  },
+  {
+    _id: ObjectId('681b2a1c6a5f75b746d861e2'),
+    rollno: 3,
+    name: 'jyo',
+    age: 25,
+    phone: [ '9534', '9900' ]
+  },
+  {
+    _id: ObjectId('681b2acf6a5f75b746d861e3'),
+    rollno: 4,
+    name: 'sura',
+    age: 17,
+    address: { city: 'malappuram', state: 'kerala' }
+  },
+  {
+    _id: ObjectId('681b2c586a5f75b746d861e4'),
+    rollno: 5,
+    name: 'appu',
+    age: 23,
+    project: [ { pid: 101, pname: 'x' }, { pid: 198, pname: 'y' } ]
+  }
+]
+24mca01_db> db.Student.updateOne({rollno:1},{$unset:{phone:""}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+24mca01_db> db.Student.find()
+[
+  {
+    _id: ObjectId('681b22d56a5f75b746d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 23,
+    phoneno: '98765655'
+  },
+  {
+    _id: ObjectId('681b25726a5f75b746d861e1'),
+    rollno: 2,
+    name: 'janu'
+  },
+  {
+    _id: ObjectId('681b2a1c6a5f75b746d861e2'),
+    rollno: 3,
+    name: 'jyo',
+    age: 25,
+    phone: [ '9534', '9900' ]
+  },
+  {
+    _id: ObjectId('681b2acf6a5f75b746d861e3'),
+    rollno: 4,
+    name: 'sura',
+    age: 17,
+    address: { city: 'malappuram', state: 'kerala' }
+  },
+  {
+    _id: ObjectId('681b2c586a5f75b746d861e4'),
+    rollno: 5,
+    name: 'appu',
+    age: 23,
+    project: [ { pid: 101, pname: 'x' }, { pid: 198, pname: 'y' } ]
+  }
+]
+24mca01_db> db.Student.updateOne({rollno:1},{$unset:{phone:"",""}})
+Uncaught:
+SyntaxError: Unexpected token (1:52)
+
+> 1 | db.Student.updateOne({rollno:1},{$unset:{phone:"",""}})
+    |                                                     ^
+  2 |
+
+24mca01_db> db.Student.updateOne({rollno:1},{$unset:{phoneno:""}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+24mca01_db> db.Student.find()
+[
+  {
+    _id: ObjectId('681b22d56a5f75b746d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 23
+  },
+  {
+    _id: ObjectId('681b25726a5f75b746d861e1'),
+    rollno: 2,
+    name: 'janu'
+  },
+  {
+    _id: ObjectId('681b2a1c6a5f75b746d861e2'),
+    rollno: 3,
+    name: 'jyo',
+    age: 25,
+    phone: [ '9534', '9900' ]
+  },
+  {
+    _id: ObjectId('681b2acf6a5f75b746d861e3'),
+    rollno: 4,
+    name: 'sura',
+    age: 17,
+    address: { city: 'malappuram', state: 'kerala' }
+  },
+  {
+    _id: ObjectId('681b2c586a5f75b746d861e4'),
+    rollno: 5,
+    name: 'appu',
+    age: 23,
+    project: [ { pid: 101, pname: 'x' }, { pid: 198, pname: 'y' } ]
+  }
+]
+24mca01_db> db.Student.deleteOne({rollno:1})
+{ acknowledged: true, deletedCount: 1 }
+24mca01_db> db.Student.find()
+[
+  {
+    _id: ObjectId('681b25726a5f75b746d861e1'),
+    rollno: 2,
+    name: 'janu'
+  },
+  {
+    _id: ObjectId('681b2a1c6a5f75b746d861e2'),
+    rollno: 3,
+    name: 'jyo',
+    age: 25,
+    phone: [ '9534', '9900' ]
+  },
+  {
+    _id: ObjectId('681b2acf6a5f75b746d861e3'),
+    rollno: 4,
+    name: 'sura',
+    age: 17,
+    address: { city: 'malappuram', state: 'kerala' }
+  },
+  {
+    _id: ObjectId('681b2c586a5f75b746d861e4'),
+    rollno: 5,
+    name: 'appu',
+    age: 23,
+    project: [ { pid: 101, pname: 'x' }, { pid: 198, pname: 'y' } ]
+  }
+]
+24mca01_db> db.Student.find().sort({name:1})
+[
+  {
+    _id: ObjectId('681b2c586a5f75b746d861e4'),
+    rollno: 5,
+    name: 'appu',
+    age: 23,
+    project: [ { pid: 101, pname: 'x' }, { pid: 198, pname: 'y' } ]
+  },
+  {
+    _id: ObjectId('681b25726a5f75b746d861e1'),
+    rollno: 2,
+    name: 'janu'
+  },
+  {
+    _id: ObjectId('681b2a1c6a5f75b746d861e2'),
+    rollno: 3,
+    name: 'jyo',
+    age: 25,
+    phone: [ '9534', '9900' ]
+  },
+  {
+    _id: ObjectId('681b2acf6a5f75b746d861e3'),
+    rollno: 4,
+    name: 'sura',
+    age: 17,
+    address: { city: 'malappuram', state: 'kerala' }
+  }
+]
+24mca01_db> db.Student.find().sort({name:-1})
+[
+  {
+    _id: ObjectId('681b2acf6a5f75b746d861e3'),
+    rollno: 4,
+    name: 'sura',
+    age: 17,
+    address: { city: 'malappuram', state: 'kerala' }
+  },
+  {
+    _id: ObjectId('681b2a1c6a5f75b746d861e2'),
+    rollno: 3,
+    name: 'jyo',
+    age: 25,
+    phone: [ '9534', '9900' ]
+  },
+  {
+    _id: ObjectId('681b25726a5f75b746d861e1'),
+    rollno: 2,
+    name: 'janu'
+  },
+  {
+    _id: ObjectId('681b2c586a5f75b746d861e4'),
+    rollno: 5,
+    name: 'appu',
+    age: 23,
+    project: [ { pid: 101, pname: 'x' }, { pid: 198, pname: 'y' } ]
+  }
+]
+24mca01_db> db.Student.find().sort({ name: -1 });
+... 
+[
+  {
+    _id: ObjectId('681b2acf6a5f75b746d861e3'),
+    rollno: 4,
+    name: 'sura',
+    age: 17,
+    address: { city: 'malappuram', state: 'kerala' }
+  },
+  {
+    _id: ObjectId('681b2a1c6a5f75b746d861e2'),
+    rollno: 3,
+    name: 'jyo',
+    age: 25,
+    phone: [ '9534', '9900' ]
+  },
+  {
+    _id: ObjectId('681b25726a5f75b746d861e1'),
+    rollno: 2,
+    name: 'janu'
+  },
+  {
+    _id: ObjectId('681b2c586a5f75b746d861e4'),
+    rollno: 5,
+    name: 'appu',
+    age: 23,
+    project: [ { pid: 101, pname: 'x' }, { pid: 198, pname: 'y' } ]
+  }
+]
+24mca01_db> db.Student.craeteIndex({rollno:1},{unique:true})
+TypeError: db.Student.craeteIndex is not a function
+24mca01_db> db.Student.createIndex({ rollno: 1 }, { unique: true });
+... 
+rollno_1
+24mca01_db> db.Student.find()
+[
+  {
+    _id: ObjectId('681b25726a5f75b746d861e1'),
+    rollno: 2,
+    name: 'janu'
+  },
+  {
+    _id: ObjectId('681b2a1c6a5f75b746d861e2'),
+    rollno: 3,
+    name: 'jyo',
+    age: 25,
+    phone: [ '9534', '9900' ]
+  },
+  {
+    _id: ObjectId('681b2acf6a5f75b746d861e3'),
+    rollno: 4,
+    name: 'sura',
+    age: 17,
+    address: { city: 'malappuram', state: 'kerala' }
+  },
+  {
+    _id: ObjectId('681b2c586a5f75b746d861e4'),
+    rollno: 5,
+    name: 'appu',
+    age: 23,
+    project: [ { pid: 101, pname: 'x' }, { pid: 198, pname: 'y' } ]
+  }
+]
+24mca01_db> db.Student.createIndex({ rollno: 2 }, { unique: true });
+rollno_2
+24mca01_db> db.Student.insertOne({rollno:5,name:"appu",age:23,project:[{pid:101,pname:"x"}{pid:198,pname:"y"}]})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:78)
+
+> 1 | db.Student.insertOne({rollno:5,name:"appu",age:23,project:[{pid:101,pname:"x"}{pid:198,pname:"y"}]})
+    |                                                                               ^
+  2 |
+
+24mca01_db> db.Student.insertOne({rollno:5,name:"appu",age:23,project:[{pid:101,pname:"x"}{pid:198,pname:"y"}]});
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:78)
+
+> 1 | db.Student.insertOne({rollno:5,name:"appu",age:23,project:[{pid:101,pname:"x"}{pid:198,pname:"y"}]});
+    |                                                                               ^
+  2 |
+
+24mca01_db> db.Student.insertOne({rollno:5,name:"appu",age:23,project:[{pid:101,pname:"x"},{pid:198,pname:"y"}]})
+MongoServerError: E11000 duplicate key error collection: 24mca01_db.Student index: rollno_1 dup key: { rollno: 5 }
+24mca01_db> 
+
